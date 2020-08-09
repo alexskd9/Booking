@@ -1,0 +1,40 @@
+﻿@model Booking.Models.EventExtended
+@{
+    ViewData["Title"] = "დეტალები";
+}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.min.js"></script>
+<script src="~/js/AddToCart.js"></script>
+
+<h2>@Model.Events.EventName</h2>
+<p>@Model.Events.EventDescription</p>
+<p>ფასი: @Math.Round(Model.Events.TicketPrice, 2) ₾</p>
+
+<table class="table table-bordered">
+    @{
+        if (User.Identity.IsAuthenticated)
+        {
+            for (int i = 1; i < ViewBag.RowNumber + 1; i++)
+            {
+                <tr>
+                    @{
+                        foreach (var item in Model.EventPlaces.Where(x=>x.Row == i))
+                        {
+                            if (item.IsAvailable == true)
+                            {
+                                <td><input class="AddToCart" type="submit" style="border:none; width:100%" data-placeId="@item.Id" data-eventId="@item.EventId" value="@item.PlaceNumber" /></td>
+                            }
+                            else
+                            {
+                                <td><input type="submit" style="border:none; width:100%; background-color:red" data-placeId="@item.Id" disabled value="@item.PlaceNumber" /></td>
+                            }
+                        }
+                    }
+                </tr>
+            }
+        }
+        else
+        {
+            <span>ბილეთების დასაჯავშნად გთხოვთ <a asp-controller="Account" asp-action="Login">შეხვიდეთ სისტემაში</a></span>
+        }
+    }
+</table>

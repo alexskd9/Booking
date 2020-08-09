@@ -1,0 +1,18 @@
+﻿@model Booking.Models.PurchaseClass
+@{
+    ViewData["Title"] = "შეძენა";
+}
+
+<h2>შეძენა</h2>
+
+<form asp-action="Purchase" method="post">
+    <span style="font-size:20px">გადაამოწმეთ თქვენი მონაცემები და დააჭირეთ შეძენის ღილაკს</span>
+    <div class="form-group">
+        <p>სახელი: @Model.FirstName</p>
+        <p>გვარი: @Model.LastName</p>
+        <p style="font-size:20px"><span style="font-size:20px; margin-right:5px">თანხა: </span><strong>@Math.Round(Model.TotalAmount, 2) ₾</strong></p>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="შეძენა" />
+    </div>
+</form>

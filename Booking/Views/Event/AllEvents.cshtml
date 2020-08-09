@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Booking.Models.DB.Events>
+@{
+    ViewData["Title"] = "მიმდინარე ღონისძიებები";
+}
+
+<h2>მიმდინარე ღონისძიებები</h2>
+
+@foreach (var item in Model)
+{
+    <div style="margin-bottom:20px">
+        <h2>@item.EventName</h2>
+        @{ if (item.EventDescription != null)
+            {
+                <p>@item.EventDescription</p>
+            }
+        }
+        <p>ჩატარების თარიღი: @item.EventDate.ToShortDateString()</p>
+        <a href="~/Event/Details/@item.Id">მეტი</a>
+    </div>
+}

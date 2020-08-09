@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Booking.Models.Cart>
+@{
+    ViewData["Title"] = "კალათა";
+}
+
+<h2>კალათა</h2>
+
+<script src="https://kit.fontawesome.com/f0f71dfaf2.js" crossorigin="anonymous"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.min.js"></script>
+<script src="~/js/Cart.js"></script>
+<h1>Cart</h1>
+<div>
+    <table class="table table-bordered">
+        <tr>
+            <th>დასახელება</th>
+            <th>რიგი</th>
+            <th>ადგილი</th>
+            <th>ფასი</th>
+            <th>წაშლა</th>
+        </tr>
+        @{ if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.EventName</td>
+                        <td>@item.RowNumber</td>
+                        <td>@item.PlaceNumber</td>
+                        <td>@Math.Round(item.Price, 2)</td>
+                        <td>
+                            <i data-cartDetailsId="@item.CartDetailsId" data-placeId="@item.PlaceId" class="removeTicket fas fa-trash" style="font-size:18px"></i>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+        <tr>
+            <td>ჯამი</td>
+            <td></td>
+            <td></td>
+            <td>@Math.Round(ViewBag.Amount, 2)</td>
+            <td></td>
+        </tr>
+    </table>
+    <form action="~/Cart/Purchase">
+        @{
+            if (ViewBag.CartAmount == 0)
+            {
+                <input type="submit" disabled value="გაგრძელება" />
+            }
+            else
+            {
+                <input type="submit" value="გაგრძელება" />
+            }
+        }
+    </form>
+</div>

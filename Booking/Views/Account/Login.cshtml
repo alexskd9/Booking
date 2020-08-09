@@ -1,0 +1,25 @@
+﻿@model Booking.Models.Account.Login
+@{
+    ViewData["Title"] = "სისტემაში შესვლა";
+    var returnUrl = @Context.Request.Query["returnurl"];
+}
+
+<h2>სისტემაში შესვლა</h2>
+
+<form asp-action="Login" method="post" class="form-sizes" style="width:300px" asp-route-returnurl="@returnUrl">
+    <div class="form-group">
+        <input class="form-control" type="text" name="Email" placeholder="ელ. ფოსტა" />
+        <p style="color:red">@ViewBag.errorLoginMessage</p>
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="password" name="Password" placeholder="პაროლი" />
+        <p style="color:red">@ViewBag.errorPasswordMessage</p>
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group ">
+        <input class="form-control btn btn-success formbutton" type="submit" value="შესვლა" style="width:100px" />
+    </div>
+    @ViewBag.errorMessage
+    <p>თუ თქვენ არ გაქვთ ანგარიში, მაშინ გაიარეთ <a href="~/Account/SignUp">რეგისტრაცია</a></p>
+</form>
